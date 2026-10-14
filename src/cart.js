@@ -15,7 +15,11 @@ function addToCart(cart, product, qty) {
 }
 
 function changeQuantity(cart, id, qty) {
-  return notImplemented();
+  const existing = cart.find((item) => item.id === id);
+  if (!existing) return cart;
+  if (qty <= 0 || qty > existing.stock) throw new RangeError("Wrong quantity");
+  existing.quantity = qty;
+  return [existing];
 }
 
 function removeFromCart(cart, id) {
@@ -26,7 +30,7 @@ function calculateCartSubtotal(cart) {
   return notImplemented();
 }
 
-function calculateOrderTotal() {
+function calculateOrderTotal(cart, promoCode) {
   return notImplemented();
 }
 
