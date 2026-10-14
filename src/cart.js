@@ -23,7 +23,7 @@ function changeQuantity(cart, id, qty) {
 }
 
 function removeFromCart(cart, id) {
-  return notImplemented();
+  return cart.filter((item) => item.id != id);
 }
 
 function calculateCartSubtotal(cart) {
