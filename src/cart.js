@@ -33,7 +33,16 @@ function calculateCartSubtotal(cart) {
 }
 
 function calculateOrderTotal(cart, promoCode) {
-  return notImplemented();
+  const subtotal = calculateCartSubtotal(cart);
+  const delivery = subtotal >= 50000 ? 0 : 30000;
+  const discount =
+    subtotal >= 20000 && promoCode === "SAVE10" ? subtotal * 0.1 : 0;
+  return {
+    subtotal: subtotal,
+    discount: discount,
+    delivery: delivery,
+    total: subtotal - discount + delivery,
+  };
 }
 
 const cartApi = {
