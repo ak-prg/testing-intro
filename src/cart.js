@@ -27,7 +27,9 @@ function removeFromCart(cart, id) {
 }
 
 function calculateCartSubtotal(cart) {
-  return notImplemented();
+  return cart.reduce((acc, item) => {
+    return acc + item.quantity * item.price;
+  }, 0);
 }
 
 function calculateOrderTotal(cart, promoCode) {
