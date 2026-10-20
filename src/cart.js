@@ -3,23 +3,29 @@ function notImplemented() {
 }
 
 function addToCart(cart, product, qty) {
-  if (qty <= 0 || qty > product.stock) throw new RangeError("Wrong quantity");
-  const existing = cart.find((p) => (p.id = product.id));
+  qty = Number(qty);
+  if (!Number.isInteger(qty) || qty <= 0 || qty > product.stock)
+    throw new RangeError("Wrong quantity");
+  const existing = cart.find((p) => p.id === product.id);
   if (existing) {
+    if (existing.quantity + qty > product.stock)
+      throw new RangeError("Wrong quantity");
     existing.quantity += Number(qty);
-    return [existing];
+    return cart;
   }
   const item = { ...product, quantity: qty };
   cart.push(item);
-  return [item];
+  return cart;
 }
 
 function changeQuantity(cart, id, qty) {
+  qty = Number(qty);
   const existing = cart.find((item) => item.id === id);
   if (!existing) return cart;
-  if (qty <= 0 || qty > existing.stock) throw new RangeError("Wrong quantity");
+  if (!Number.isInteger(qty) || qty <= 0 || qty > existing.stock)
+    throw new RangeError("Wrong quantity");
   existing.quantity = qty;
-  return [existing];
+  return cart;
 }
 
 function removeFromCart(cart, id) {
